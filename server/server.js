@@ -13,8 +13,6 @@ app.use(bodyParser.json());
 
 app.use(require('./routes/userREST.js'));
 
-mongooseDbport = 27017;
-
 let connectionOptions = {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -22,7 +20,9 @@ let connectionOptions = {
     useFindAndModify: false
 };
 
-mongoose.connect(`mongodb://localhost:${mongooseDbport}/cafe`, connectionOptions, (err, res) => {
+let port = process.env.PORT;
+
+mongoose.connect(process.env.URLDB, connectionOptions, (err, res) => {
     if (err)
     {
         throw err;
@@ -34,7 +34,7 @@ mongoose.connect(`mongodb://localhost:${mongooseDbport}/cafe`, connectionOptions
 });
 
 
-let port = process.env.PORT;
+
 
 app.listen(port, () =>
 {
