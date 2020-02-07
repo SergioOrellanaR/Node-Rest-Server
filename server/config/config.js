@@ -24,15 +24,8 @@ if (process.env.NODE_ENV === 'dev')
 }
 else
 {
-    // const user = 'YOUR_USER_HERE';
-    // const pass = 'YOUR_PASS_HERE';
-    // const cluster = 'YOUR_CLUSTER_INFORMATION_HERE'
-
-    const user = 'serorellanar';
-    const pass = 'lnjzFzmWJ4KjGh08';
-    const cluster = 'orellanacluster-599jo.mongodb.net/cafe';
-
-    urlDB = `mongodb+srv://${user}:${pass}@${cluster}`;
+    //Reemplaza esta variable por tu connectionString de atlas
+    urlDB = process.env.MONGO_URI;
 }
 
 process.env.URLDB = urlDB;
