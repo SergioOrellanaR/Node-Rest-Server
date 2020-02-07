@@ -1,60 +1,42 @@
 
 require('./config/config.js');
-const express = require('express');
 var bodyParser = require('body-parser');
+const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.get('/user', function (req, res)
-{
-    res.json('get User');
-});
+app.use(require('./routes/userREST.js'));
 
-app.post('/user', function (req, res)
-{
-    let body = req.body;
+mongooseDbport = 27017;
 
-    if (body.name === undefined)
+let connectionOptions = {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology:true,
+    useFindAndModify: false
+};
+
+mongoose.connect(`mongodb://localhost:${mongooseDbport}/cafe`, connectionOptions, (err, res) => {
+    if (err)
     {
-        res.status(400).json(
-            {
-                ok: false,
-                message: 'Es necesario ingresar el nombre'
-            }
-        );
-    } else
-    {
-        res.json((
-            {
-                persona: body
-            }
-        ));
-
+        throw err;
     }
-
+    else
+    {
+        console.log('Base de datos online');
+    }
 });
-
-app.put('/user/:id', function (req, res)
-{
-    let id = req.params.id;
-    res.json({ id });
-});
-
-app.delete('/user', function (req, res)
-{
-    res.json('delete User');
-});
-
 
 
 let port = process.env.PORT;
 
 app.listen(port, () =>
 {
-    `Escuchando en puerto: ${port}`;
+    console.log(`Escuchando en puerto: ${port}`);
 })
