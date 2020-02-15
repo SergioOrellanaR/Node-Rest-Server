@@ -29,7 +29,7 @@ mongoose.connect(process.env.URLDB, connectionOptions, (err, res) => {
     }
     else
     {
-        console.log('Base de datos online');
+        console.log('Base de datos online!!');
     }
 });
 
