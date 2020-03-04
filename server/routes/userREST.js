@@ -2,10 +2,10 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const User = require('../models/userDB');
-const { tokenVerificate } = require('../middlewares/authentication');
+const { tokenVerificate, adminRoleVerificate } = require('../middlewares/authentication');
 const app = express();
 
-app.get('/user', tokenVerificate,function (req, res)
+app.get('/user', tokenVerificate, function (req, res)
 {
     let startFrom = req.query.startFrom || 0;
     startFrom = Number(startFrom);
@@ -46,7 +46,7 @@ app.get('/user', tokenVerificate,function (req, res)
         );
 });
 
-app.post('/user', function (req, res)
+app.post('/user', [tokenVerificate, adminRoleVerificate], function (req, res)
 {
     let body = req.body;
     console.log(body);
@@ -84,7 +84,7 @@ app.post('/user', function (req, res)
 
 });
 
-app.put('/user/:id', function (req, res)
+app.put('/user/:id', [tokenVerificate, adminRoleVerificate], function (req, res)
 {
     let id = req.params.id;
     let updatableValues = [
@@ -129,7 +129,7 @@ app.put('/user/:id', function (req, res)
     });
 });
 
-app.delete('/user/:id', function (req, res)
+app.delete('/user/:id', [tokenVerificate, adminRoleVerificate], function (req, res)
 {
     let id = req.params.id;
 
