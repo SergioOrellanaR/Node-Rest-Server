@@ -17,6 +17,12 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 const mongooseDbport = 27017;
 let urlDB;
 
+const user = 'serorellanar';
+const pass = 'lnjzFzmWJ4KjGh08';
+const cluster = 'orellanacluster-599jo.mongodb.net/cafe';
+
+urlDB = `mongodb+srv://${user}:${pass}@${cluster}`;
+
 
 if (process.env.NODE_ENV === 'dev')
 {
@@ -25,7 +31,7 @@ if (process.env.NODE_ENV === 'dev')
 else
 {
     //Reemplaza esta variable por tu connectionString de atlas
-    urlDB = process.env.MONGO_URI;
+    //urlDB = process.env.MONGO_URI;
 }
 
 process.env.URLDB = urlDB;
