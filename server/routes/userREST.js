@@ -48,6 +48,7 @@ app.get('/user', function (req, res)
 app.post('/user', function (req, res)
 {
     let body = req.body;
+    console.log(body);
 
     let user = new User(
         {
