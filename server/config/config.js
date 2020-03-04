@@ -24,14 +24,14 @@ const cluster = 'orellanacluster-599jo.mongodb.net/cafe';
 urlDB = `mongodb+srv://${user}:${pass}@${cluster}`;
 
 
-if (process.env.NODE_ENV === 'dev')
-{
-    urlDB = `mongodb://localhost:${mongooseDbport}/cafe`;
-}
-else
-{
-    //Reemplaza esta variable por tu connectionString de atlas
-    //urlDB = process.env.MONGO_URI;
-}
+// if (process.env.NODE_ENV === 'dev')
+// {
+//     urlDB = `mongodb://localhost:${mongooseDbport}/cafe`;
+// }
+// else
+// {
+//     //Reemplaza esta variable por tu connectionString de atlas
+//     //urlDB = process.env.MONGO_URI;
+// }
 
 process.env.URLDB = urlDB;
