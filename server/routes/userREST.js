@@ -2,9 +2,10 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const User = require('../models/userDB');
+const { tokenVerificate } = require('../middlewares/authentication');
 const app = express();
 
-app.get('/user', function (req, res)
+app.get('/user', tokenVerificate,function (req, res)
 {
     let startFrom = req.query.startFrom || 0;
     startFrom = Number(startFrom);

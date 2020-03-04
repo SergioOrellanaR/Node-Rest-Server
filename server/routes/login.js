@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/userDB');
 const app = express();
 
@@ -22,14 +23,14 @@ app.post('/login', (req, res) =>
         }
         else
         {
-            console.log(userDB);
+
             if (!userDB)
             {
                 return res.status(400).json(
                     {
                         ok: false,
                         err: {
-                            message: 'Usuario o contraseña incorrectos'
+                            message: '(Usuario) o contraseña incorrectos'
 
                         }
                     }
@@ -43,17 +44,27 @@ app.post('/login', (req, res) =>
                     {
                         ok: false,
                         err: {
-                            message: 'Usuario o contraseña incorrectos'
+                            message: 'Usuario o (contraseña) incorrectos'
 
                         }
                     }
                 );
             }
 
+            let token = jwt.sign(
+                {
+                    user: userDB
+                },
+                process.env.SEED,
+                {
+                    expiresIn: process.env.TOKEN_EXPIRATION
+                }
+            );
+
             res.json({
                 ok: true,
                 user: userDB,
-                token: '123'
+                token
             });
         }
 
